@@ -22,10 +22,11 @@ var UserAgents = map[string]string{
 
 func add_schema(site string) string {
 	schema_len := len("https")
-	if len(site) > schema_len {
-		site = "https://" + site
-	}
-	if site[:schema_len] != "https" {
+	if (len(site) > schema_len) {
+		if site[:schema_len] != "https" {
+			site = "https://" + site
+		}
+	} else {
 		site = "https://" + site
 	}
 	return site
@@ -71,9 +72,6 @@ func main() {
 		os.Exit(1)
 	}
 
-	fmt.Println("_________________________________________________________")
-	fmt.Printf("\t\t%s\n", site)
-	fmt.Println("_________________________________________________________")
 	fmt.Println("{");
 	for key, val :=range resp.Header {
 		fmt.Printf("\t%s: %s\n", key, val[0])
